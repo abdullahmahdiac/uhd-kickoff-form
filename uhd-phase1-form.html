@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 1 Kickoff — Urban Hills Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:    #000000;
+    --charcoal: #111111;
+    --gold:     #C9A84C;
+    --gold-dim: rgba(201,168,76,0.12);
+    --white:    #FFFFFF;
+    --muted:    rgba(255,255,255,0.4);
+    --border:   rgba(201,168,76,0.22);
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    background: var(--black);
+    color: var(--white);
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  /* COVER */
+  .cover {
+    padding: 60px 24px 52px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .cover::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 2px;
+    background: var(--gold);
+    margin: 36px auto 0;
+  }
+
+  .eyebrow {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 22px;
+  }
+
+  .cover h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 7vw, 58px);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 18px;
+  }
+
+  .cover h1 em { font-style: italic; color: var(--gold); }
+
+  .cover p {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    line-height: 1.8;
+  }
+
+  /* FORM */
+  .form-wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .section {
+    margin-top: 60px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: rise 0.5s ease forwards;
+  }
+  .section:nth-child(1){animation-delay:.10s}
+  .section:nth-child(2){animation-delay:.18s}
+  .section:nth-child(3){animation-delay:.26s}
+  .section:nth-child(4){animation-delay:.34s}
+  .section:nth-child(5){animation-delay:.42s}
+  .section:nth-child(6){animation-delay:.50s}
+
+  @keyframes rise { to { opacity:1; transform:translateY(0); } }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+  }
+  .section-label::before { content:''; width:28px; height:1px; background:var(--gold); flex-shrink:0; }
+  .section-label::after  { content:''; flex:1; height:1px; background:var(--border); }
+
+  .field { margin-bottom: 28px; }
+
+  label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  label .hint {
+    font-weight: 300;
+    color: var(--muted);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 11px;
+    margin-left: 6px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select {
+    width: 100%;
+    background: var(--charcoal);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 13px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--white);
+    outline: none;
+    appearance: none;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+  }
+
+  input::placeholder, textarea::placeholder { color: rgba(255,255,255,.18); }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,.08);
+    background: #161616;
+  }
+
+  textarea { resize: vertical; min-height: 86px; line-height: 1.65; }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 42px;
+    cursor: pointer;
+  }
+  select option { background: #111; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width:520px){ .two-col { grid-template-columns:1fr; } }
+
+  /* RADIO PILLS */
+  .radio-group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .radio-pill { position: relative; }
+  .radio-pill input[type="radio"] { position:absolute; opacity:0; width:0; }
+  .radio-pill label {
+    display: inline-block;
+    padding: 9px 20px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: var(--charcoal);
+    color: var(--muted);
+    transition: all .15s;
+    margin: 0;
+  }
+  .radio-pill input[type="radio"]:checked + label {
+    border-color: var(--gold);
+    background: var(--gold-dim);
+    color: var(--gold);
+  }
+  .radio-pill label:hover { border-color: rgba(201,168,76,.5); color: var(--white); }
+
+  /* CHECKBOXES */
+  .checkbox-group { display: flex; flex-direction: column; gap: 10px; }
+
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,.7);
+    text-transform: none;
+    letter-spacing: 0;
+    transition: color .15s;
+  }
+  .check-item:hover { color: var(--white); }
+
+  .check-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--charcoal);
+    appearance: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    transition: all .15s;
+  }
+  .check-item input[type="checkbox"]:checked {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .check-item input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px; top: 1px;
+    width: 6px; height: 10px;
+    border: 2px solid #000;
+    border-top: none; border-left: none;
+    transform: rotate(45deg);
+  }
+
+  /* SUBMIT */
+  .submit-section {
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .submit-note {
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 300px;
+  }
+
+  .btn-submit {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    padding: 15px 42px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background .2s, transform .1s, box-shadow .2s;
+    white-space: nowrap;
+  }
+  .btn-submit:hover {
+    background: #dbb95a;
+    box-shadow: 0 4px 24px rgba(201,168,76,.28);
+    transform: translateY(-1px);
+  }
+  .btn-submit:active { transform: translateY(0); }
+
+  .success-msg {
+    display: none;
+    background: var(--charcoal);
+    border: 1px solid var(--gold);
+    border-left: 3px solid var(--gold);
+    padding: 20px 24px;
+    border-radius: 2px;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.65;
+    margin-top: 24px;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    margin-top: 80px;
+    padding: 28px 24px 0;
+    border-top: 1px solid var(--border);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .footer span { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="eyebrow">La Jolla Media Solutions &nbsp;·&nbsp; Client Onboarding</div>
+  <h1>Phase 1 <em>Kickoff</em><br>Urban Hills Design</h1>
+  <p>Fill this out so we can hit the ground running before April 2nd.<br>Takes about 5 minutes.</p>
+</div>
+
+<div class="form-wrap">
+<form id="kickoffForm">
+
+  <!-- 01 -->
+  <div class="section">
+    <div class="section-label">01 &nbsp; Business Info</div>
+    <div class="two-col">
+      <div class="field"><label>Full Name</label><input type="text" name="name" placeholder="Your name" required></div>
+      <div class="field"><label>Business Name</label><input type="text" name="bizName" placeholder="Urban Hills Design" required></div>
+    </div>
+    <div class="two-col">
+      <div class="field"><label>Phone</label><input type="tel" name="phone" placeholder="(512) 000-0000"></div>
+      <div class="field"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required></div>
+    </div>
+    <div class="field">
+      <label>Investment Brand Name <span class="hint">if different from above</span></label>
+      <input type="text" name="investmentBrand" placeholder="e.g. Urban Hills Capital">
+    </div>
+  </div>
+
+  <!-- 02 -->
+  <div class="section">
+    <div class="section-label">02 &nbsp; Current Website</div>
+    <div class="field"><label>Website URL</label><input type="url" name="websiteUrl" placeholder="https://www.urbanhillsdesign.com"></div>
+    <div class="field">
+      <label>Do you have access to the backend / site editor?</label>
+      <div class="radio-group">
+        <div class="radio-pill"><input type="radio" name="siteAccess" id="sa_yes" value="Yes"><label for="sa_yes">Yes</label></div>
+        <div class="radio-pill"><input type="radio" name="siteAccess" id="sa_no" value="No"><label for="sa_no">No</label></div>
+        <div class="radio-pill"><input type="radio" name="siteAccess" id="sa_unsure" value="Not sure"><label for="sa_unsure">Not sure</label></div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Platform <span class="hint">if you know it</span></label>
+      <select name="platform">
+        <option value="">Select one</option>
+        <option>B12</option><option>WordPress</option><option>Squarespace</option>
+        <option>Wix</option><option>Webflow</option><option>Other / Not sure</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Login / Editor Access <span class="hint">credentials or how you'll invite us</span></label>
+      <textarea name="siteLogin" placeholder="Username, password, or how you'll grant access..."></textarea>
+    </div>
+  </div>
+
+  <!-- 03 -->
+  <div class="section">
+    <div class="section-label">03 &nbsp; Google Business Profile</div>
+    <div class="field">
+      <label>Do you have an existing GBP?</label>
+      <div class="radio-group">
+        <div class="radio-pill"><input type="radio" name="hasGBP" id="gbp_yes" value="Yes"><label for="gbp_yes">Yes</label></div>
+        <div class="radio-pill"><input type="radio" name="hasGBP" id="gbp_no" value="No"><label for="gbp_no">No — need to create one</label></div>
+        <div class="radio-pill"><input type="radio" name="hasGBP" id="gbp_unsure" value="Not sure"><label for="gbp_unsure">Not sure</label></div>
+      </div>
+    </div>
+    <div class="field"><label>Google Account Email <span class="hint">tied to GBP or the one to use</span></label><input type="email" name="googleEmail" placeholder="google@email.com"></div>
+    <div class="field"><label>Business Address <span class="hint">or service area if no storefront</span></label><input type="text" name="address" placeholder="Austin, TX or full address"></div>
+    <div class="field"><label>Service Areas <span class="hint">cities or zip codes</span></label><input type="text" name="serviceAreas" placeholder="Austin, Round Rock, Cedar Park..."></div>
+    <div class="field"><label>Business Hours</label><input type="text" name="hours" placeholder="Mon–Fri 8am–6pm, Sat by appt..."></div>
+  </div>
+
+  <!-- 04 -->
+  <div class="section">
+    <div class="section-label">04 &nbsp; Messaging & Positioning</div>
+    <div class="field"><label>Target Investor Return Rate <span class="hint">the number you lead with</span></label><input type="text" name="returnRate" placeholder="e.g. 10–12% annualized"></div>
+    <div class="field">
+      <label>Deal Types You're Focused On Now</label>
+      <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox" name="dealTypes" value="Flips"> Fix &amp; flip</label>
+        <label class="check-item"><input type="checkbox" name="dealTypes" value="New builds"> New builds</label>
+        <label class="check-item"><input type="checkbox" name="dealTypes" value="Private lending"> Private lending / notes</label>
+        <label class="check-item"><input type="checkbox" name="dealTypes" value="Buy and hold"> Buy &amp; hold</label>
+        <label class="check-item"><input type="checkbox" name="dealTypes" value="Other"> Other</label>
+      </div>
+    </div>
+    <div class="field"><label>Track Record / Stats to Highlight <span class="hint">deals closed, capital raised, returns paid</span></label><textarea name="trackRecord" placeholder="e.g. 12 deals closed, $2M raised, 100% of investors paid on time..."></textarea></div>
+    <div class="field"><label>Key Credibility Signals <span class="hint">partners, lenders, licenses, affiliations, press</span></label><textarea name="credibility" placeholder="e.g. Licensed contractor, partnered with ABC Lending, featured in..."></textarea></div>
+  </div>
+
+  <!-- 05 -->
+  <div class="section">
+    <div class="section-label">05 &nbsp; April 2nd Event</div>
+    <div class="field"><label>Event Name <span class="hint">if confirmed</span></label><input type="text" name="eventName" placeholder="e.g. Urban Hills Investor Night"></div>
+    <div class="field"><label>Venue Name &amp; Address</label><input type="text" name="venue" placeholder="Venue name, Austin TX"></div>
+    <div class="field">
+      <label>Primary Goal of the Event</label>
+      <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox" name="eventGoal" value="Raise capital"> Raise capital</label>
+        <label class="check-item"><input type="checkbox" name="eventGoal" value="Network with investors"> Network with investors</label>
+        <label class="check-item"><input type="checkbox" name="eventGoal" value="Present deals"> Present current deals</label>
+        <label class="check-item"><input type="checkbox" name="eventGoal" value="Build credibility"> Build credibility / brand presence</label>
+      </div>
+    </div>
+    <div class="field"><label>What Should the Site Do for Attendees After the Event? <span class="hint">sign up, book a call, view deals</span></label><textarea name="postEvent" placeholder="e.g. I want them to be able to join our investor list from the site..."></textarea></div>
+  </div>
+
+  <!-- 06 -->
+  <div class="section">
+    <div class="section-label">06 &nbsp; Assets &amp; Access</div>
+    <div class="field">
+      <label>What Do You Have Ready?</label>
+      <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox" name="assets" value="Logo files"> Logo files (PNG / SVG)</label>
+        <label class="check-item"><input type="checkbox" name="assets" value="Project photos"> Project photos / before &amp; afters</label>
+        <label class="check-item"><input type="checkbox" name="assets" value="Testimonials"> Client testimonials</label>
+        <label class="check-item"><input type="checkbox" name="assets" value="Headshots"> Team headshots</label>
+        <label class="check-item"><input type="checkbox" name="assets" value="Video"> Video content</label>
+        <label class="check-item"><input type="checkbox" name="assets" value="Nothing yet"> None of the above yet</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>Best Way to Share Files With Us</label>
+      <div class="radio-group">
+        <div class="radio-pill"><input type="radio" name="fileShare" id="fs_drive" value="Google Drive"><label for="fs_drive">Google Drive</label></div>
+        <div class="radio-pill"><input type="radio" name="fileShare" id="fs_drop" value="Dropbox"><label for="fs_drop">Dropbox</label></div>
+        <div class="radio-pill"><input type="radio" name="fileShare" id="fs_text" value="Text"><label for="fs_text">Text / iMessage</label></div>
+        <div class="radio-pill"><input type="radio" name="fileShare" id="fs_email" value="Email"><label for="fs_email">Email</label></div>
+      </div>
+    </div>
+    <div class="field"><label>Anything Else We Should Know?</label><textarea name="notes" placeholder="Deadlines, preferences, things to avoid, other contacts involved..."></textarea></div>
+  </div>
+
+  <div class="submit-section">
+    <p class="submit-note">Once you submit we'll review everything and follow up within 24 hours to confirm next steps.</p>
+    <button type="submit" class="btn-submit">Submit &rarr;</button>
+  </div>
+
+  <div class="success-msg" id="successMsg">
+    ✔ &nbsp; Got it — we'll review everything and be in touch within 24 hours. Talk soon.
+  </div>
+
+</form>
+
+<div class="footer">
+  <span>La Jolla Media Solutions</span> &nbsp;·&nbsp; lajollamediasolutions.com &nbsp;·&nbsp; © 2025
+</div>
+</div>
+
+<script>
+  document.getElementById('kickoffForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('.btn-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.style.display = 'none';
+      const msg = document.getElementById('successMsg');
+      msg.style.display = 'block';
+      msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 800);
+  });
+</script>
+</body>
+</html>
